@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1090652847457",
+    "firebase_url": "https://zuumm-app.firebaseio.com",
+    "project_id": "zuumm-app",
+    "storage_bucket": "zuumm-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090652847457:android:38a31936f3185dbce09920",
+        "android_client_info": {
+          "package_name": "com.example.zuumm_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090652847457-v7p0ivho96se5hd4hi58r4is2fkmrg6a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxaNnX09P1aZA-hSKw28FaUdvvUg444dU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090652847457-v7p0ivho96se5hd4hi58r4is2fkmrg6a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
