@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_button/flutter_progress_button.dart';
+import 'package:zuumm_app/Screens/Login/initial-screen.dart';
 
 class UserRegisterForm extends StatefulWidget {
   const UserRegisterForm({Key key}) : super(key: key);
@@ -29,13 +30,15 @@ class _UserRegisterFormState extends State<UserRegisterForm> {
                   Icons.arrow_back,
                   color: Colors.orange[700],
                 ),
-                onPressed: () => Navigator.pop(context, false),
+                onPressed: () => MaterialPageRoute(
+                    builder: (context) =>
+                        InitialScreen()), //Navigator.pop(context, false),
               ),
               SizedBox(
                 width: 40,
               ),
               Text(
-                "Cadastrar Motorista",
+                "Cadastrar Usuário",
                 style: TextStyle(
                   color: Colors.orange[700],
                   fontSize: 20,

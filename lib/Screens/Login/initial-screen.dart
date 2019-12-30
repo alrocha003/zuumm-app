@@ -23,39 +23,44 @@ class _InitialScreenState extends State<InitialScreen>
       child: new Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(top: 200.0),
+            padding: EdgeInsets.only(top: 100.0),
             child: Center(
               child: Icon(
                 const IconData(59675, fontFamily: 'MaterialIcons'),
                 color: Colors.white,
-                size: 60.0,
+                size: 40.0,
               ),
             ),
           ),
           Container(
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
                   "Zuumm ",
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40.0,
-                  ),
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontFamily: 'Shadows Into Light'),
                 ),
                 Text(
                   "App",
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 40.0,
+                      fontSize: 20.0,
+                      fontFamily: 'Shadows Into Light',
                       fontWeight: FontWeight.w800),
                 ),
               ],
             ),
           ),
+          SizedBox(
+            height: 180.0,
+          ),
           new Container(
             width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
+            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 0.0),
             alignment: Alignment.center,
             child: new Row(
               children: <Widget>[
@@ -97,11 +102,10 @@ class _InitialScreenState extends State<InitialScreen>
             child: new Row(
               children: <Widget>[
                 new Expanded(
-                  child: new OutlineButton(
+                  child: new FlatButton(
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
-                    color: Colors.redAccent,
-                    highlightedBorderColor: Colors.white,
+                    color: Colors.red,
                     onPressed: () => gotoSignup(),
                     child: new Container(
                       padding: const EdgeInsets.symmetric(

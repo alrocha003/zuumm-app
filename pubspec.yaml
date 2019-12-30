@@ -26,6 +26,7 @@ dependencies:
   firebase_core: ^0.2.5
   curved_navigation_bar: ^0.1.26 #latest version
   flutter_progress_button: '^0.6.2'
+  flutter_signin_button: ^1.0.0
 
 
   
@@ -45,9 +46,14 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  fonts:
+    - family: Shadows Into Light
+      # fonts:
+      #   - asset: fonts/ShadowsIntoLight-Regular.ttf
+        
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
+  assets:
+   - imagens/profile_alex.jpg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -3,8 +3,11 @@ import 'package:zuumm_app/Screens/Home/home-screen.dart';
 import 'package:zuumm_app/Screens/Login/initial-screen.dart';
 import 'package:zuumm_app/Screens/Login/login-screen.dart';
 import 'package:zuumm_app/Screens/Login/signup-screen.dart';
+import 'package:zuumm_app/Screens/Profile/profile-screen.dart';
 import 'package:zuumm_app/Screens/Signup/driverregister-screen.dart';
 import 'package:zuumm_app/Screens/Signup/initialquestion-screen.dart';
+import 'package:zuumm_app/Screens/Signup/userregister-screen.dart';
+import 'Screens/Recents/recents-screen.dart';
 import 'Screens/Splash/splash.dart';
 
 void main() => runApp(MaterialApp(
@@ -32,7 +35,10 @@ void main() => runApp(MaterialApp(
     routes: {
       '/initial': (context) => InitialScreen(),
       '/Login': (context) => LoginScreen(),
-      '/Signup': (context) => SignupScreen()
+      '/Signup': (context) => SignupScreen(),
+      '/Initial': (context) => InitialQuestionScreen(),
+      '/DriverRegister': (context) => DriverRegisterScreen(),
+      '/UserRegister': (context) => UserRegisterScreen()
     },
     debugShowCheckedModeBanner: false,
-    home: SplashScreen()));
+    home: HomeScreen()));

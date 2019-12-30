@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           new Container(
             width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
+            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 0.0),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               border: Border(
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: BorderStyle.solid),
               ),
             ),
-            padding: const EdgeInsets.only(left: 0.0, right: 10.0),
+            padding: const EdgeInsets.only(left: 0.0, right: 0.0),
             child: new Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           new Container(
             width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
+            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 0.0),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               border: Border(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:zuumm_app/Screens/Signup/initialquestion-screen.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -9,9 +11,69 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: signupPage(),
+      backgroundColor: Colors.white,
+      body: signupWidget(),
       resizeToAvoidBottomInset: false,
     );
+  }
+
+  Widget signupWidget() {
+    return new Column(children: <Widget>[
+      new Row(
+        children: <Widget>[
+          SizedBox(
+            height: 100,
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.orange[700],
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      ),
+      SizedBox(
+        height: 250.0,
+      ),
+      new Container(
+        // height: MediaQuery.of(context).size.height / 2.45,
+        // color: Colors.orangeAccent[100],
+        child: new Row(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(left: 75, top: 0),
+              child: new Column(
+                children: <Widget>[
+                  SignInButton(
+                    Buttons.Facebook,
+                    text: "Logar com o Facebook",
+                    onPressed: () {},
+                  ),
+                  SignInButton(
+                    Buttons.Google,
+                    text: "Logar com o Google",
+                    onPressed: () {},
+                  ),
+                  SignInButton(
+                    Buttons.Twitter,
+                    text: "Logar com o twitter",
+                    onPressed: () {},
+                  ),
+                  SignInButton(
+                    Buttons.Email,
+                    text: "Logar com o Email",
+                    onPressed: () {
+                      navigateToSignupFormScreen();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ]);
   }
 
   Widget signupPage() {
@@ -23,7 +85,7 @@ class _SignupScreenState extends State<SignupScreen> {
       child: new Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(70.0),
+            // padding: EdgeInsets.all(20.0),
             child: Center(
               child: Icon(
                 Icons.motorcycle,
@@ -207,7 +269,7 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
           new Container(
             width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 50.0),
+            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 0.0),
             alignment: Alignment.center,
             child: new Row(
               children: <Widget>[
@@ -246,5 +308,10 @@ class _SignupScreenState extends State<SignupScreen> {
         ],
       ),
     );
+  }
+
+  void navigateToSignupFormScreen() {
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => InitialQuestionScreen()));
   }
 }

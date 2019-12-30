@@ -31,13 +31,14 @@ class _SplashScreenState extends State<SplashScreen> {
                   colors: [
                 Colors.orange[700],
                 // Colors.orangeAccent,
-                Colors.orange,
-                Colors.white70
+                Colors.orange[400],
+                Colors.white
               ])),
           child: new Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              SizedBox(height: 100.0,),
               new Text(
                 "Zuumm App",
                 style: new TextStyle(
@@ -52,7 +53,13 @@ class _SplashScreenState extends State<SplashScreen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
-              )
+              ),
+              SizedBox(
+                height: 280.0,
+              ),
+              CircularProgressIndicator(
+                backgroundColor: Colors.orange[700],
+              ),
             ],
           ),
         ));

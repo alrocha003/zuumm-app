@@ -43,26 +43,26 @@ class _RegisterFormState extends State<RegisterForm> {
               ),
             ],
           ),
-          SizedBox(
-            height: 25,
-          ),
-          TextFormField(
-            cursorColor: Color.fromRGBO(227, 222, 215, 0.8),
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.orange[700],
-            ),
-            decoration: const InputDecoration(
-              labelText: 'Nickname',
-              fillColor: Color.fromRGBO(227, 222, 215, 0.8),
-            ),
-            validator: (String value) {
-              if (value.trim().isEmpty) {
-                return 'Nickname é requerido';
-              }
-            },
-          ),
-          SizedBox(height: 16.0),
+          // SizedBox(
+          //   height: 25,
+          // ),
+          // TextFormField(
+          //   cursorColor: Color.fromRGBO(227, 222, 215, 0.8),
+          //   style: TextStyle(
+          //     fontSize: 14,
+          //     color: Colors.orange[700],
+          //   ),
+          //   decoration: const InputDecoration(
+          //     labelText: 'Nickname',
+          //     fillColor: Color.fromRGBO(227, 222, 215, 0.8),
+          //   ),
+          //   validator: (String value) {
+          //     if (value.trim().isEmpty) {
+          //       return 'Nickname é requerido';
+          //     }
+          //   },
+          // ),
+          // SizedBox(height: 16.0),
           TextFormField(
             style: TextStyle(
               fontSize: 14,
@@ -152,7 +152,7 @@ class _RegisterFormState extends State<RegisterForm> {
               }
             },
           ),
-          SizedBox(height: 30.0),
+          // SizedBox(height: 30.0),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Row(
@@ -171,7 +171,7 @@ class _RegisterFormState extends State<RegisterForm> {
               ],
             ),
           ),
-          SizedBox(height: 16.0),
+          // SizedBox(height: 16.0),
           Container(
             margin: EdgeInsets.only(left: 15),
             child: ProgressButton(
