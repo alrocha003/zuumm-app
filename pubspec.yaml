@@ -46,8 +46,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  fonts:
-    - family: Shadows Into Light
+  #fonts:
+    #- family: Shadows Into Light
       # fonts:
       #   - asset: fonts/ShadowsIntoLight-Regular.ttf
         
