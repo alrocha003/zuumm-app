@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "1090652847457",
-    "firebase_url": "https://zuumm-app.firebaseio.com",
-    "project_id": "zuumm-app",
-    "storage_bucket": "zuumm-app.appspot.com"
+    "project_number": "400151140061",
+    "firebase_url": "https://zuummapp-fb5d1.firebaseio.com",
+    "project_id": "zuummapp-fb5d1",
+    "storage_bucket": "zuummapp-fb5d1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1090652847457:android:38a31936f3185dbce09920",
+        "mobilesdk_app_id": "1:400151140061:android:5c3330a33239250e1f2d34",
         "android_client_info": {
           "package_name": "com.example.zuumm_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1090652847457-v7p0ivho96se5hd4hi58r4is2fkmrg6a.apps.googleusercontent.com",
+          "client_id": "400151140061-nt94r472ocbaeu4fj8fnbre126vvce92.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zuumm_app",
+            "certificate_hash": "94588a6b858d032444a2aab2f7da7528cd9ebee3"
+          }
+        },
+        {
+          "client_id": "400151140061-eqkrnsalgc910dg9r87v4bmsg85ol71j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAxaNnX09P1aZA-hSKw28FaUdvvUg444dU"
+          "current_key": "AIzaSyAnT2rFls5lKNDvDeKqMNRq_8OgWWV3Kms"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1090652847457-v7p0ivho96se5hd4hi58r4is2fkmrg6a.apps.googleusercontent.com",
+              "client_id": "400151140061-eqkrnsalgc910dg9r87v4bmsg85ol71j.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

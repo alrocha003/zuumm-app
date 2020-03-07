@@ -1,19 +1,96 @@
+import 'package:fancy_dialog/FancyGif.dart';
+import 'package:fancy_dialog/FancyTheme.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:math' as math;
+import 'package:zuumm_app/Models/Profile.dart';
+import 'package:fancy_dialog/fancy_dialog.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  ProfileScreen({Key key, this.profile}) : super(key: key);
+  final Profile profile;
+
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState(profile);
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  _ProfileScreenState(this.profile);
+  final Profile profile;
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+
+  @override
+  void initState() {
+    super.initState();
+    String _message = "";
+    firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> msg) async {
+        if (Theme.of(context).platform == TargetPlatform.iOS)
+          _message = msg['aps']['alert'];
+        else {
+          _message = msg['notification']['data']['message'];
+          _message = _message.isEmpty ? msg['data']['message'] : _message;
+        }
+        print('on message $_message');
+        if (profile.idProfile == 2) notificationRacer(context, _message);
+      },
+      onResume: (Map<String, dynamic> msg) async {
+        if (Theme.of(context).platform == TargetPlatform.iOS)
+          _message = msg['aps']['alert'];
+        else
+          _message = msg['notification']['data']['message'];
+        _message = _message.isEmpty ? msg['data']['message'] : _message;
+        print('on message $_message');
+        if (profile.idProfile == 2) notificationRacer(context, _message);
+      },
+      onLaunch: (Map<String, dynamic> msg) async {
+        if (Theme.of(context).platform == TargetPlatform.iOS)
+          _message = msg['aps']['alert'];
+        else
+          _message = msg['notification']['data']['message'];
+        _message = _message.isEmpty ? msg['data']['message'] : _message;
+        print('on message $_message');
+        if (profile.idProfile == 2) notificationRacer(context, _message);
+      },
+    );
+    firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+    firebaseMessaging.getToken().then((token) {
+      print(token);
+    });
+  }
+
+  void notificationRacer(BuildContext context, String race) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => FancyDialog(
+        title: "Corrida encontrada",
+        theme: FancyTheme.FLAT,
+        animationType: 2,
+        gifPath: FancyGif.FUNNY_MAN,
+        okColor: Colors.greenAccent[700],
+        cancelColor: Colors.orange[400],
+        descreption: "Deseja aceitar a corrida? $race",
+        okFun: () => null,
+        cancelFun: () => null,
+      ),
+      useRootNavigator: true,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Perfil",
-      home: ProfilePage(),
+      home: ProfilePage(profile: profile),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class ProfilePage extends StatelessWidget {
+  ProfilePage({this.profile});
+  Profile profile;
+
   TextStyle _style() {
     return TextStyle(fontWeight: FontWeight.bold);
   }
@@ -31,66 +108,112 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text("Nome"),
             SizedBox(
-              height: 4,
+              height: 20,
             ),
             Text(
-              "Alex Rocha",
+              "Nome",
               style: _style(),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              profile.name ?? "",
+            ),
+            SizedBox(
+              height: 8,
             ),
             Text(
               "E-mail",
               style: _style(),
             ),
             SizedBox(
-              height: 4,
+              height: 8,
             ),
-            Text("alrocha003@gmail.com"),
+            Text(profile.email ?? ""),
             SizedBox(
-              height: 16,
+              height: 8,
             ),
             Text(
-              "Localização",
+              "Endereço",
               style: _style(),
             ),
             SizedBox(
               height: 4,
             ),
-            Text("Sorocaba, São Paulo, BRA"),
+            Text(profile.address ?? ""),
             SizedBox(
-              height: 16,
+              height: 8,
             ),
             Text(
-              "Idioma",
+              "Nº",
               style: _style(),
             ),
             SizedBox(
               height: 4,
             ),
-            Text("Português, Inglês"),
-            SizedBox(
-              height: 16,
-            ),
             Text(
-              "Profissão",
+              "Bairro",
               style: _style(),
             ),
             SizedBox(
               height: 4,
             ),
-            Text("Analista de Sistemas"),
+            Text(profile.neighborhood ?? ""),
             SizedBox(
-              height: 16,
+              height: 8,
             ),
             Text(
-              "Usuário desde",
+              "Cidade",
               style: _style(),
             ),
             SizedBox(
               height: 4,
             ),
-            Text("29/11/2019"),
+            Text(profile.city ?? ""),
+            SizedBox(
+              height: 8,
+            ),
+            Text(profile.number ?? ""),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              "CEP",
+              style: _style(),
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Text(profile.cep ?? ""),
+            SizedBox(
+              height: 8,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              "Telefone",
+              style: _style(),
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Text(profile.telephone ?? ""),
+            SizedBox(
+              height: 8,
+            ),
+            profile.idProfile == 2
+                ? Text(
+                    "CNH",
+                    style: _style(),
+                  )
+                : Text(""),
+            SizedBox(
+              height: 4,
+            ),
+            profile.idProfile == 2 ? Text(profile.since.toString()) : Text(''),
             Divider(
               color: Colors.grey,
             )
@@ -101,32 +224,36 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-final String url = "https://photos.app.goo.gl/aJpPTi4g4ZtVEjtC7";
+final url = "https://photos.app.goo.gl/aJpPTi4g4ZtVEjtC7";
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
-  Size get preferredSize => Size(double.maxFinite, 200);
+  Size get preferredSize => Size(double.maxFinite, 250);
 
   @override
   Widget build(BuildContext context) {
     return ClipPath(
       clipper: MyClipper(),
       child: Container(
-        padding: EdgeInsets.only(top: 2),
-        decoration: BoxDecoration(color: Colors.orangeAccent[700], boxShadow: [
+        padding: EdgeInsets.only(top: 3),
+        decoration: BoxDecoration(color: Colors.orange[700], boxShadow: [
           BoxShadow(
               color: Colors.orangeAccent[700],
               blurRadius: 20,
               offset: Offset(0, 0))
         ]),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              height: 15,
+              height: 25,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                SizedBox(
+                  height: 70,
+                ),
                 IconButton(
                   icon: Icon(
                     Icons.arrow_back,
@@ -135,7 +262,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                   onPressed: () {},
                 ),
                 SizedBox(
-                  width: 40,
+                  width: 50,
                 ),
                 Text(
                   "Perfil",
@@ -143,6 +270,18 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                     color: Colors.white,
                     fontSize: 24,
                   ),
+                ),
+                SizedBox(
+                  width: 190,
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.person_outline,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    logout(context);
+                  },
                 ),
               ],
             ),
@@ -152,26 +291,25 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                 Column(
                   children: <Widget>[
                     Container(
-                      width: 100,
-                      height: 100,
+                      // margin: EdgeInsets.only(left: 20),
+                      width: 90,
+                      height: 90,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                              fit: BoxFit.cover, image: NetworkImage(url))),
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                  "https://picsum.photos/250?image=9"))),
                     ),
                     SizedBox(
-                      height: 16,
+                      height: 30,
                     ),
-                    Text(
-                      "Alex Rocha",
-                      style: TextStyle(color: Colors.black54, fontSize: 20),
-                    )
                   ],
                 ),
                 Column(
                   children: <Widget>[
                     Text(
-                      "Pedidos Realizados: ",
+                      "Pedidos Realizados:",
                       style: TextStyle(color: Colors.white),
                     ),
                     Text(
@@ -197,38 +335,10 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Text(
-                      "Savings",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      "20K",
-                      style: TextStyle(color: Colors.white, fontSize: 24),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  width: 32,
-                ),
-                Column(
-                  children: <Widget>[
-                    Text(
-                      "July Goals",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text("50K",
-                        style: TextStyle(color: Colors.white, fontSize: 24))
-                  ],
-                ),
                 SizedBox(
                   width: 16,
                 )
               ],
-            ),
-            SizedBox(
-              height: 8,
             ),
             Align(
               alignment: Alignment.bottomRight,
@@ -237,22 +347,19 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                   print("//TODO: button clicked");
                 },
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 24, 16, 0),
-                  child: Transform.rotate(
-                    angle: (math.pi * 0.05),
-                    child: Container(
-                      width: 110,
-                      height: 32,
-                      child: Center(
-                        child: Text("Edit Profile"),
-                      ),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                          boxShadow: [
-                            BoxShadow(color: Colors.black12, blurRadius: 20)
-                          ]),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
+                  child: Container(
+                    width: 140,
+                    height: 40,
+                    child: Center(
+                      child: Text("Configurações"),
                     ),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                        boxShadow: [
+                          BoxShadow(color: Colors.black12, blurRadius: 20)
+                        ]),
                   ),
                 ),
               ),
@@ -262,6 +369,23 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       ),
     );
   }
+
+  void logout(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => FancyDialog(
+        title: "Logout",
+        theme: FancyTheme.FANCY,
+        animationType: 2,
+        okColor: Colors.greenAccent[700],
+        cancelColor: Colors.orange[400],
+        descreption: "Deseja fazer logout da aplicação?",
+        okFun: () => Navigator.pop(context, false),
+        cancelFun: () => null,
+      ),
+      useRootNavigator: true,
+    );
+  }
 }
 
 class MyClipper extends CustomClipper<Path> {
@@ -269,10 +393,10 @@ class MyClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path p = Path();
 
-    p.lineTo(0, size.height - 60);
-    p.lineTo(size.width, size.height / 1.05);
+    p.lineTo(0, size.height - 40);
+    p.lineTo(size.width, size.height / .55);
 
-    p.lineTo(size.width, 0);
+    p.lineTo(size.width, 10);
 
     p.close();
 

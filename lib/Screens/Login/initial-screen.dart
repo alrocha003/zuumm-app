@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zuumm_app/Screens/Login/login-screen.dart';
-import 'package:zuumm_app/Screens/Login/signup-screen.dart';
+import 'package:zuumm_app/Screens/Signup/initialquestion-screen.dart';
 
 class InitialScreen extends StatefulWidget {
   @override
@@ -17,9 +17,15 @@ class _InitialScreenState extends State<InitialScreen>
   Widget initialPage() {
     return new Container(
       height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        color: Colors.orangeAccent,
-      ),
+      decoration: new BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomRight,
+              colors: [
+            Colors.orange[700],
+            Colors.orange[400],
+            Colors.orange[50]
+          ])),
       child: new Column(
         children: <Widget>[
           Container(
@@ -28,29 +34,23 @@ class _InitialScreenState extends State<InitialScreen>
               child: Icon(
                 const IconData(59675, fontFamily: 'MaterialIcons'),
                 color: Colors.white,
-                size: 40.0,
+                size: 60.0,
               ),
             ),
           ),
           Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 10,
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  "Zuumm ",
+                  "Zuumm",
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20.0,
+                      fontSize: 70.0,
+                      fontWeight: FontWeight.w900,
                       fontFamily: 'Shadows Into Light'),
-                ),
-                Text(
-                  "App",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      fontFamily: 'Shadows Into Light',
-                      fontWeight: FontWeight.w800),
                 ),
               ],
             ),
@@ -71,6 +71,7 @@ class _InitialScreenState extends State<InitialScreen>
                     color: Colors.white,
                     onPressed: () => gotoLogin(),
                     child: new Container(
+                      color: Colors.white,
                       padding: const EdgeInsets.symmetric(
                         vertical: 20.0,
                         horizontal: 20.0,
@@ -146,11 +147,8 @@ class _InitialScreenState extends State<InitialScreen>
   }
 
   gotoSignup() {
-    _controller.animateToPage(
-      2,
-      duration: Duration(milliseconds: 800),
-      curve: Curves.bounceOut,
-    );
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => InitialQuestionScreen()));
   }
 
   PageController _controller =
@@ -161,7 +159,7 @@ class _InitialScreenState extends State<InitialScreen>
     return PageView(
       controller: _controller,
       physics: new AlwaysScrollableScrollPhysics(),
-      children: <Widget>[LoginScreen(), initialPage(), SignupScreen()],
+      children: <Widget>[LoginScreen(), initialPage()],
       scrollDirection: Axis.horizontal,
     );
   }

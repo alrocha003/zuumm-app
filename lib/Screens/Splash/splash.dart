@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     color: Colors.white70),
               ),
               new Text(
-                "Seu app de entregas =)",
+                "Seu app de entregas",
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

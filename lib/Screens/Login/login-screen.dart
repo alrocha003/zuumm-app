@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_button/flutter_progress_button.dart';
+import 'package:zuumm_app/Models/Profile.dart';
 import 'package:zuumm_app/Screens/Home/home-screen.dart';
+import 'package:zuumm_app/Services/login-service.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -7,12 +10,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  LoginService _service = new LoginService();
+
+  final _controller = TextEditingController();
+  final _passController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: loginPage(),
-      resizeToAvoidBottomInset: false,
-    );
+    return WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          body: loginPage(),
+          resizeToAvoidBottomInset: false,
+        ));
   }
 
   Widget loginPage() {
@@ -23,6 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       child: new Column(
         children: <Widget>[
+          SizedBox(
+            height: 40,
+          ),
           Container(
             padding: EdgeInsets.all(70.0),
             child: Center(
@@ -37,9 +50,61 @@ class _LoginScreenState extends State<LoginScreen> {
             children: <Widget>[
               new Expanded(
                 child: new Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
+                  padding: const EdgeInsets.only(left: 40.0, bottom: 15.0),
                   child: new Text(
-                    "Login",
+                    "Username",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.orange[800],
+                      fontSize: 15.0,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          new Container(
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 0.0),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                    color: Colors.orange[800],
+                    width: 0.5,
+                    style: BorderStyle.solid),
+              ),
+            ),
+            padding: const EdgeInsets.only(left: 0.0, right: 0.0),
+            child: new Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                new Expanded(
+                  child: TextField(
+                    obscureText: false,
+                    textAlign: TextAlign.left,
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'username',
+                      hintStyle: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 25.0,
+          ),
+          new Row(
+            children: <Widget>[
+              new Expanded(
+                child: new Padding(
+                  padding: const EdgeInsets.only(left: 40.0, bottom: 15.0),
+                  child: new Text(
+                    "Senha",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.orange[800],
@@ -71,57 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: TextField(
                     obscureText: true,
                     textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'alrocha003@gmail.com',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            height: 24.0,
-          ),
-          new Row(
-            children: <Widget>[
-              new Expanded(
-                child: new Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
-                  child: new Text(
-                    "Senha",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.orange[800],
-                      fontSize: 15.0,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 0.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                    color: Colors.orange[800],
-                    width: 0.5,
-                    style: BorderStyle.solid),
-              ),
-            ),
-            padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-            child: new Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                new Expanded(
-                  child: TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.left,
+                    controller: _passController,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: '*********',
@@ -132,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
-          Divider(
+          SizedBox(
             height: 12.0,
           ),
           new Row(
@@ -155,6 +170,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ],
           ),
+          new SizedBox(
+            height: 25,
+          ),
           new Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0),
@@ -162,36 +180,34 @@ class _LoginScreenState extends State<LoginScreen> {
             child: new Row(
               children: <Widget>[
                 new Expanded(
-                  child: new FlatButton(
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
+                  child: ProgressButton(
+                    color: Color.fromRGBO(251, 163, 23, 0.9),
+                    progressWidget: CircularProgressIndicator(
+                      backgroundColor: Colors.orange[800],
                     ),
-                    color: Colors.orange[800],
-                    onPressed: () => navigateToHomeScreen(),
-                    child: new Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 20.0,
-                      ),
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Expanded(
-                            child: Text(
-                              "Login",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
+                    borderRadius: 10,
+                    width: 100,
+                    height: 40,
+                    onPressed: () async {
+                      await Future.delayed(
+                          Duration(milliseconds: 3000),
+                          () => navigateToHomeScreen(_controller.value.text,
+                              _passController.value.text));
+                    },
+                    defaultWidget: new Text(
+                      "Entrar",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ),
               ],
             ),
+          ),
+          new SizedBox(
+            height: MediaQuery.of(context).size.height / 35,
           ),
           new Container(
             width: MediaQuery.of(context).size.width,
@@ -239,7 +255,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 children: <Widget>[
                                   new Expanded(
                                     child: new FlatButton(
-                                      onPressed: () => navigateToHomeScreen(),
+                                      onPressed: () =>
+                                          null, //navigateToHomeScreen(),
                                       padding: EdgeInsets.only(
                                         top: 20.0,
                                         bottom: 20.0,
@@ -336,8 +353,47 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void navigateToHomeScreen() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomeScreen()));
+  void navigateToHomeScreen(username, pass) async {
+    try {
+      Profile _profile = await _service.verifyLogin(username, pass);
+      if (_profile != null) {
+        await Future.delayed(
+            Duration(milliseconds: 3000),
+            () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomeScreen(
+                          profile: _profile,
+                        ))));
+      } else
+        _showDialog('Login', 'Usuário ou senha incorretos');
+    } catch (ex) {
+      _showDialog('Erro', ex.toString());
+    }
+  }
+
+  void _showDialog(String title, String content) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(title),
+          content: new Text(content),
+          backgroundColor: Colors.white,
+          contentPadding: EdgeInsets.all(10),
+          shape: new ContinuousRectangleBorder(
+            borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Fechar"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

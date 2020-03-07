@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:zuumm_app/Screens/Delivery/routedelivery-screen.dart';
 import 'package:zuumm_app/Screens/Home/home-screen.dart';
 import 'package:zuumm_app/Screens/Login/initial-screen.dart';
 import 'package:zuumm_app/Screens/Login/login-screen.dart';
 import 'package:zuumm_app/Screens/Login/signup-screen.dart';
-import 'package:zuumm_app/Screens/Profile/profile-screen.dart';
 import 'package:zuumm_app/Screens/Signup/driverregister-screen.dart';
 import 'package:zuumm_app/Screens/Signup/initialquestion-screen.dart';
 import 'package:zuumm_app/Screens/Signup/userregister-screen.dart';
-import 'Screens/Recents/recents-screen.dart';
 import 'Screens/Splash/splash.dart';
 
-void main() => runApp(MaterialApp(
-    title: 'Vruumm App',
+void main() async {
+  runApp(MaterialApp(
+    title: 'Zuumm App',
     theme: ThemeData(
       primaryColor: Colors.orange,
       accentColor: Colors.orangeAccent,
@@ -33,12 +33,16 @@ void main() => runApp(MaterialApp(
     ),
     initialRoute: '/',
     routes: {
+      '/': (context) => SplashScreen(),
       '/initial': (context) => InitialScreen(),
       '/Login': (context) => LoginScreen(),
       '/Signup': (context) => SignupScreen(),
       '/Initial': (context) => InitialQuestionScreen(),
+      '/Home': (context) => HomeScreen(),
       '/DriverRegister': (context) => DriverRegisterScreen(),
-      '/UserRegister': (context) => UserRegisterScreen()
+      '/UserRegister': (context) => UserRegisterScreen(),
+      '/RouteDelivery': (context) => RouteDeliveryScreen(),
     },
     debugShowCheckedModeBanner: false,
-    home: HomeScreen()));
+  ));
+}

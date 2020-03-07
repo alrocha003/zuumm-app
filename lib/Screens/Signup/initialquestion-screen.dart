@@ -7,21 +7,21 @@ class InitialQuestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.orange[600],
+      backgroundColor: Colors.white38,
       body: Container(
         width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.only(top: 200),
+        margin: EdgeInsets.only(top: 300),
         child: Column(
           children: <Widget>[
             ProgressButton(
+              borderRadius: 10,
               color: Color.fromRGBO(240, 240, 240, 0.9),
               progressWidget: const CircularProgressIndicator(),
               width: 300,
               height: 60,
               onPressed: () async {
-                int score = await Future.delayed(
+                await Future.delayed(
                     const Duration(milliseconds: 3000), () => 42);
-                // After [onPressed], it will trigger animation running backwards, from end to beginning
                 return () => navigateToUserFormScreen(context);
               },
               defaultWidget: new Text(
@@ -32,26 +32,26 @@ class InitialQuestionScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Ink(),
-            Container(
-              padding: EdgeInsets.only(top: 50),
-              child: ProgressButton(
-                progressWidget: const CircularProgressIndicator(),
-                color: Color.fromRGBO(240, 240, 240, 0.9),
-                width: 300,
-                height: 60,
-                onPressed: () async {
-                  int score = await Future.delayed(
-                      const Duration(milliseconds: 3000), () => 42);
-                  // After [onPressed], it will trigger animation running backwards, from end to beginning
-                  return () => navigateToDriverFormScreen(context);
-                },
-                defaultWidget: new Text(
-                  "Sou Motorista",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.orangeAccent[700],
-                  ),
+            SizedBox(
+              height: 100,
+            ),
+            ProgressButton(
+              borderRadius: 10.0,
+              progressWidget: const CircularProgressIndicator(),
+              color: Color.fromRGBO(240, 240, 240, 0.9),
+              width: 300,
+              height: 60,
+              onPressed: () async {
+                int score = await Future.delayed(
+                    const Duration(milliseconds: 3000), () => 42);
+                // After [onPressed], it will trigger animation running backwards, from end to beginning
+                return () => navigateToDriverFormScreen(context);
+              },
+              defaultWidget: new Text(
+                "Sou Motorista",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.orangeAccent[700],
                 ),
               ),
             ),

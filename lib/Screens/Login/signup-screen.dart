@@ -29,7 +29,7 @@ class _SignupScreenState extends State<SignupScreen> {
               Icons.arrow_back,
               color: Colors.orange[700],
             ),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.pop(context, false),
           ),
         ],
       ),
@@ -37,28 +37,33 @@ class _SignupScreenState extends State<SignupScreen> {
         height: 250.0,
       ),
       new Container(
-        // height: MediaQuery.of(context).size.height / 2.45,
-        // color: Colors.orangeAccent[100],
         child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(left: 75, top: 0),
+              // margin: EdgeInsets.only(left: 75, top: 0),
               child: new Column(
                 children: <Widget>[
                   SignInButton(
                     Buttons.Facebook,
                     text: "Logar com o Facebook",
-                    onPressed: () {},
+                    onPressed: () {
+                      navigateToSignupFormScreen();
+                    },
                   ),
                   SignInButton(
                     Buttons.Google,
                     text: "Logar com o Google",
-                    onPressed: () {},
+                    onPressed: () {
+                      navigateToSignupFormScreen();
+                    },
                   ),
                   SignInButton(
                     Buttons.Twitter,
                     text: "Logar com o twitter",
-                    onPressed: () {},
+                    onPressed: () {
+                      navigateToSignupFormScreen();
+                    },
                   ),
                   SignInButton(
                     Buttons.Email,
@@ -85,7 +90,6 @@ class _SignupScreenState extends State<SignupScreen> {
       child: new Column(
         children: <Widget>[
           Container(
-            // padding: EdgeInsets.all(20.0),
             child: Center(
               child: Icon(
                 Icons.motorcycle,
