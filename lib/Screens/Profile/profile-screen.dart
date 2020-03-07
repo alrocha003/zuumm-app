@@ -4,6 +4,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:zuumm_app/Models/Profile.dart';
 import 'package:fancy_dialog/fancy_dialog.dart';
+import 'package:zuumm_app/Screens/Recents/recents-screen.dart';
+import 'package:zuumm_app/Services/race-service.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({Key key, this.profile}) : super(key: key);
@@ -16,6 +18,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   _ProfileScreenState(this.profile);
   final Profile profile;
+  final RaceService _service = new RaceService();
   FirebaseMessaging firebaseMessaging = FirebaseMessaging();
 
   @override
@@ -27,29 +30,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
         if (Theme.of(context).platform == TargetPlatform.iOS)
           _message = msg['aps']['alert'];
         else {
-          _message = msg['notification']['data']['message'];
-          _message = _message.isEmpty ? msg['data']['message'] : _message;
+          _message = msg['data']['message'];
         }
         print('on message $_message');
-        if (profile.idProfile == 2) notificationRacer(context, _message);
+        if (profile.idProfile == 2)
+          notificationRacer(context, _message, msg['data']['body'], profile.id);
       },
       onResume: (Map<String, dynamic> msg) async {
         if (Theme.of(context).platform == TargetPlatform.iOS)
           _message = msg['aps']['alert'];
         else
-          _message = msg['notification']['data']['message'];
-        _message = _message.isEmpty ? msg['data']['message'] : _message;
+          _message = msg['data']['message'];
+
         print('on message $_message');
-        if (profile.idProfile == 2) notificationRacer(context, _message);
+        if (profile.idProfile == 2)
+          notificationRacer(context, _message, msg['data']['body'], profile.id);
       },
       onLaunch: (Map<String, dynamic> msg) async {
         if (Theme.of(context).platform == TargetPlatform.iOS)
           _message = msg['aps']['alert'];
         else
-          _message = msg['notification']['data']['message'];
-        _message = _message.isEmpty ? msg['data']['message'] : _message;
+          _message = msg['data']['message'];
+
         print('on message $_message');
-        if (profile.idProfile == 2) notificationRacer(context, _message);
+        if (profile.idProfile == 2)
+          notificationRacer(context, _message, msg['data']['body'], profile.id);
       },
     );
     firebaseMessaging.requestNotificationPermissions(
@@ -59,7 +64,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  void notificationRacer(BuildContext context, String race) {
+  void notificationRacer(
+      BuildContext context, String race, String raceId, int driverId) {
     showDialog(
       context: context,
       builder: (BuildContext context) => FancyDialog(
@@ -70,11 +76,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
         okColor: Colors.greenAccent[700],
         cancelColor: Colors.orange[400],
         descreption: "Deseja aceitar a corrida? $race",
-        okFun: () => null,
+        okFun: () async {
+          await _service.putRaceByIdRaceDriver(raceId, driverId);
+          gotoRecents(context);
+        },
         cancelFun: () => null,
       ),
       useRootNavigator: true,
     );
+  }
+
+  gotoRecents(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => RecentsScreen(
+                  id: profile.id,
+                  idProfile: profile.idProfile,
+                )));
   }
 
   @override
@@ -97,10 +116,10 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return profileWidget();
+    return profileWidget(context);
   }
 
-  Widget profileWidget() {
+  Widget profileWidget(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
       body: Container(
@@ -109,49 +128,65 @@ class ProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
-              height: 20,
+              height: 40,
             ),
-            Text(
-              "Nome",
-              style: _style(),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Text(
-              profile.name ?? "",
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Text(
-              "E-mail",
-              style: _style(),
+            Row(
+              children: <Widget>[
+                Text(
+                  "Nome:",
+                  style: _style(),
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  profile.name ?? "",
+                ),
+              ],
             ),
             SizedBox(
               height: 8,
             ),
-            Text(profile.email ?? ""),
+            Row(
+              children: <Widget>[
+                Text(
+                  "E-mail",
+                  style: _style(),
+                ),
+                SizedBox(
+                  width: 4,
+                ),
+                Text(profile.email ?? ""),
+              ],
+            ),
             SizedBox(
               height: 8,
             ),
-            Text(
-              "Endereço",
-              style: _style(),
+            Row(
+              children: <Widget>[
+                Text(
+                  "Endereço: ",
+                  style: _style(),
+                ),
+                SizedBox(
+                  width: 4,
+                ),
+                Text(profile.address ?? ""),
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  "Nº",
+                  style: _style(),
+                ),
+                SizedBox(
+                  width: 4,
+                ),
+                Text(profile.number ?? ""),
+              ],
             ),
-            SizedBox(
-              height: 4,
-            ),
-            Text(profile.address ?? ""),
             SizedBox(
               height: 8,
-            ),
-            Text(
-              "Nº",
-              style: _style(),
-            ),
-            SizedBox(
-              height: 4,
             ),
             Text(
               "Bairro",
@@ -162,7 +197,7 @@ class ProfilePage extends StatelessWidget {
             ),
             Text(profile.neighborhood ?? ""),
             SizedBox(
-              height: 8,
+              height: 4,
             ),
             Text(
               "Cidade",
@@ -173,11 +208,11 @@ class ProfilePage extends StatelessWidget {
             ),
             Text(profile.city ?? ""),
             SizedBox(
-              height: 8,
+              height: 4,
             ),
             Text(profile.number ?? ""),
             SizedBox(
-              height: 8,
+              height: 4,
             ),
             Text(
               "CEP",
@@ -187,9 +222,6 @@ class ProfilePage extends StatelessWidget {
               height: 4,
             ),
             Text(profile.cep ?? ""),
-            SizedBox(
-              height: 8,
-            ),
             SizedBox(
               height: 8,
             ),
@@ -213,7 +245,7 @@ class ProfilePage extends StatelessWidget {
             SizedBox(
               height: 4,
             ),
-            profile.idProfile == 2 ? Text(profile.since.toString()) : Text(''),
+            profile.idProfile == 2 ? Text(profile.cnh.toString()) : Text(''),
             Divider(
               color: Colors.grey,
             )
@@ -252,7 +284,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 SizedBox(
-                  height: 70,
+                  height: 40,
                 ),
                 IconButton(
                   icon: Icon(
@@ -272,7 +304,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 190,
+                  width: 150,
                 ),
                 IconButton(
                   icon: Icon(

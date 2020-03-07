@@ -135,17 +135,17 @@ class _RecentsScreenState extends State<RecentsScreen> {
                         Text('Origem: ${snapshot.data[index]["LocalOrigem"]}'),
                         Text(
                             'Destino: ${snapshot.data[index]["LocalDestino"]}'),
-                        // Align(
-                        //   alignment: Alignment.centerLeft,
-                        //   child: Container(
-                        //     child: Text(
-                        //       snapshot.data[index]["IdMotorista"] == 0
-                        //           ? " - - -"
-                        //           : 'Motorista: ${snapshot.data[index]["IdMotorista"]}',
-                        //       style: TextStyle(fontStyle: FontStyle.italic),
-                        //     ),
-                        //   ),
-                        // ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            child: Text(
+                              'Status: ${snapshot.data[index]["StatusCorrida"]}',
+                              style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.orange[700]),
+                            ),
+                          ),
+                        ),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Container(

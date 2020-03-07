@@ -141,7 +141,7 @@ class _RouteDeliveryScreenState extends State<RouteDeliveryScreen> {
                       style: _style(),
                     ),
                     SizedBox(
-                      width: 8,
+                      width: 6,
                     ),
                     Text(
                       race.destination,
@@ -169,7 +169,7 @@ class _RouteDeliveryScreenState extends State<RouteDeliveryScreen> {
             ),
           ),
           SizedBox(
-            height: 8,
+            height: 18,
           ),
           Container(
             padding: EdgeInsets.all(10),
@@ -206,7 +206,7 @@ class _RouteDeliveryScreenState extends State<RouteDeliveryScreen> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 2.5,
+            height: MediaQuery.of(context).size.height / 2.8,
             margin: EdgeInsets.all(10),
             child: GoogleMap(
               mapType: MapType.hybrid,

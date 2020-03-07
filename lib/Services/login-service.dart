@@ -8,7 +8,7 @@ class LoginService {
 
   Future<Profile> verifyLogin(String username, String pass) async {
     String loginUrl = debug
-        ? '''http://${Global.getServerUrl()}:5000/api/login/$username/$pass'''
+        ? '''http://${Global.getServerUrl()}:5000/api/login/${username?.trim()}/$pass'''
         : '''https://my-json-server.typicode.com/alrocha003/zuum-json-api/Clientes?Email=$username&Senha=$pass''';
 
     Response res = await post(loginUrl);
